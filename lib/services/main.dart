@@ -2,19 +2,36 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mobile/screen/home_screen.dart';
 import 'package:mobile/screen/register_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:http/http.dart' as http;
 
-void main() {
+void main() async{
+WidgetsFlutterBinding.ensureInitialized();
+
+// Set the initial base URL here
+final String initialBaseUrl = 'http://192.168.5.20:8000/api';
+
+// Store the initial base URL in SharedPreferences
+final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+sharedPreferences.setString('my_url', initialBaseUrl);
+
 
   runApp(const MyApp());
 }
 
+
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -37,7 +54,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const RegisterScreen(),
+      home:  HomeScreen(),
     );
   }
 }

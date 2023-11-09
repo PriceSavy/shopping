@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mobile/screen/home_screen.dart';
 import 'package:mobile/screen/register_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+// String? url;
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -21,6 +26,25 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+
+
+    // getUrl()async{
+    //
+    //   final SharedPreferences sharedPreferences =
+    //   await SharedPreferences.getInstance();
+    //   var myURL = sharedPreferences.getString('my_url');
+    //
+    //   setState(() {
+    //     // url=myURL;
+    //     print(url);
+    //   });
+    // }
+    void initState() {
+
+      // getUrl();
+
+      super.initState();
+    }
     Future userLogin(String email,String password)async{
 
 
@@ -30,21 +54,28 @@ class _LoginScreenState extends State<LoginScreen> {
             'email': email,
             'password': password,
 
-
           });
-          var response = await Dio().post('http://192.168.5.5:8000/api/login/', data: data);
+          var response = await Dio().post('http://192.168.43.160:8000/api/login/', data: data);
           var dat = response.data;
-          print(dat);
-          if(dat['message'] == 'Login successful'){
+
+          if(response.statusCode==200){
+
+
             Fluttertoast.showToast(
               msg: "User logged in Successfully",
               gravity: ToastGravity.CENTER,
               timeInSecForIosWeb: 2,
               backgroundColor: Colors.green,);
+
+            final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+            sharedPreferences.setString('email', email);
+
+            print(email);
+
             Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
 
 
-          }else if((dat['message'] == 'Invalid credentials')){
+          }else{
             Fluttertoast.showToast(
               msg: "Invalid details",
               gravity: ToastGravity.CENTER,
@@ -55,7 +86,6 @@ class _LoginScreenState extends State<LoginScreen> {
           print(e);
         }
 
-        // Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
 
 
 
@@ -145,8 +175,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   Container(
-                    // padding: EdgeInsets.fromLTRB(0, 0,60,0),
-                    child:  const Text('Please, in below form enter the details that you registered',style: TextStyle(fontSize: 18, fontWeight: FontWeight.w300),),
+
+                    child:  const Text('Please, in below form enter the details that you registered',style: TextStyle(fontSize: 13, fontWeight: FontWeight.w300),),
                   ),
 
                   const SizedBox(
@@ -156,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Container(
                     child: Column(
                       children: [
-                        // Text('Let us help you find shops to help you buy your product'),
+
                         Form(
                           key: _formKey,
                           child: Column(
@@ -170,7 +200,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   style: const TextStyle(
                                     fontSize: 19,
                                     height: 0.9,
-                                    // fontWeight: FontWeight.w300,
+
                                   ),
                                   validator: (value){
                                     if(value!.isEmpty){
@@ -195,7 +225,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       height: 4,
                                      ),
                                       prefixIcon: const Icon(
-                                        Icons.phone,
+                                        Icons.person,
                                       )),
                                 ),
                               ),
@@ -260,17 +290,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 Size.fromHeight(50)),
                           ),
                           onPressed: () async {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => const HomeScreen()));
+
                             if(_formKey.currentState!.validate()){
 
                               userLogin(emailController.text, passwordController.text);
 
                             }else {
 
-                              // Fluttertoast.showToast(msg: 'Confirm Password Field is Empty',gravity: ToastGravity.CENTER);
+
                             }
 
                           },
@@ -278,7 +305,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
 
                         Container(
-                          // padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+
                           child: Column(
                             children: [
                               TextButton(
