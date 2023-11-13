@@ -293,21 +293,27 @@ class _CompareItemState extends State<CompareItem> {
                         onPressed: () {},
                         icon: isLiked
                             ? Icon(
+
                           Icons.favorite,
                           color: Colors.indigo.shade300,
+
                         )
                             : Icon(
                           Icons.favorite_border_outlined,
                           color: Colors.indigo.shade300,
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.share_outlined,
-                          color: Colors.indigo.shade300,
-                        ),
-                      ),
+                      // IconButton(
+                      //   onPressed: () {},
+                      //   icon: Icon(
+                      //     Icons.share_outlined,
+                      //     color: Colors.indigo.shade300,
+                      //   ),
+                      // ),
+
+
+
+
                     ],
                     flexibleSpace: Container(
                       height: 300,
@@ -350,28 +356,38 @@ class _CompareItemState extends State<CompareItem> {
                                               margin: const EdgeInsets.fromLTRB(
                                                   8, 2, 1, 0),
                                               child: Column(
-                                                children: [
-                                                  Container(
-                                                    padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        0, 0, 120, 0),
-                                                    child: Text(
-                                                      'Size: $sizeItem',
-                                                      style: TextStyle(
-                                                        color: Colors.black
-                                                            .withOpacity(0.9),
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                        FontWeight.bold,
-                                                      ),
-                                                      textAlign:
-                                                      TextAlign.start,
-                                                      textWidthBasis:
-                                                      TextWidthBasis
-                                                          .parent,
-                                                    ),
-                                                  ),
 
+
+                                                children: [
+
+
+                                                  Row(
+                                                    children: [
+                                                      // Container(
+                                                      //   child: Text('jd'),
+                                                      // ),
+                                                      Container(
+                                                        // padding:
+                                                        // const EdgeInsets.fromLTRB(
+                                                        //     0, 0, 90, 0),
+                                                        child: Text(
+                                                          'Size: $sizeItem',
+                                                          style: TextStyle(
+                                                            color: Colors.black
+                                                                .withOpacity(0.9),
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                            FontWeight.bold,
+                                                          ),
+                                                          // textAlign:
+                                                          // TextAlign.start,
+                                                          // textWidthBasis:
+                                                          // TextWidthBasis
+                                                          //     .parent,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
 
 
                                                   Row(
@@ -405,34 +421,37 @@ class _CompareItemState extends State<CompareItem> {
                                                   _divider(),
                                                 ],
                                               )),
-                                          Container(
-                                              height: 130,
-                                              margin: const EdgeInsets.fromLTRB(
-                                                  0, 2, 0, 0),
-                                              decoration: BoxDecoration(
-                                                color: Colors.white
-                                                    .withOpacity(0.1),
-                                                borderRadius:
-                                                BorderRadius.circular(5),
-                                              ),
-                                              child: Column(
-                                                children: [
-                                                  Text(
-                                                    description.toString(),
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                      FontWeight.w300,
-                                                      color: Colors.black
-                                                          .withOpacity(0.9),
-                                                      fontSize: 15,
-                                                    ),
-                                                    textAlign:
-                                                    TextAlign.start,
-                                                    textWidthBasis:
-                                                    TextWidthBasis.parent,
+                                          Row(
+                                            children: [
+                                              Container(
+                                                  // height: 110,
+                                                  margin: const EdgeInsets.fromLTRB(
+                                                      5, 2, 0, 0),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white
+                                                        .withOpacity(0.1),
+                                                    borderRadius:
+                                                    BorderRadius.circular(5),
                                                   ),
-                                                ],
-                                              )),],
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        description.toString(),
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                          FontWeight.w300,
+                                                          color: Colors.black
+                                                              .withOpacity(0.9),
+                                                          fontSize: 15,
+                                                        ),
+
+                                                      ),
+                                                    ],
+                                                  )),
+                                            ],
+                                          ),
+
+                                        ],
                                       ),
                                     ),
                                   )
@@ -503,7 +522,7 @@ class _CompareItemState extends State<CompareItem> {
                                 if (showSearchInput)
                                 SizedBox(
                                     height: 40,
-                                    width: 150,
+                                    width: 140,
                                     child:
                                     TextField(
                                       focusNode:_searchFocusNode,

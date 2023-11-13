@@ -1,3 +1,4 @@
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mobile/screen/home_screen.dart';
@@ -7,14 +8,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 void main() async{
-WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
 // Set the initial base URL here
-final String initialBaseUrl = 'http://192.168.5.20:8000/api';
+  final String initialBaseUrl = 'http://192.168.5.20:8000/api';
 
 // Store the initial base URL in SharedPreferences
-final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-sharedPreferences.setString('my_url', initialBaseUrl);
+  final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  sharedPreferences.setString('my_url', initialBaseUrl);
 
 
   runApp(const MyApp());

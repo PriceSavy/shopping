@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:developer';
 import 'package:mobile/screen/compare_screen.dart';
+import 'package:mobile/screen/category_screen.dart';
 import '../models/itemInfo.dart';
 
 String? email;
@@ -230,7 +231,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
-              onTap: () {},
+              onTap: () {
+
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CategoryScreen()));
+              },
             ),
             ListTile(
               leading: const Icon(Icons.person),

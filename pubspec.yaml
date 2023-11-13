@@ -60,7 +60,7 @@ dev_dependencies:
   flutter_search_bar:
   url_launcher: ^6.1.14
   flutter_barcode_scanner:
-
+  collection:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
