@@ -5,20 +5,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:collection/collection.dart';
 
-class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({super.key});
+class Category extends StatefulWidget {
+  const Category({super.key});
 
   @override
-  State<CategoryScreen> createState() => _CategoryScreenState();
+  State<Category> createState() => _CategoryState();
 }
 
-class _CategoryScreenState extends State<CategoryScreen> {
+class _CategoryState extends State<Category> {
   List<Map<String, dynamic>> selectedCategories = [];
   List<int> selectedCategoryIds = [];
-  List<int> likedItemsIds = [];
-   String cate ='';
   List data = [];
+  // late bool color;
 
+   String cate ='';
   bool _isSelected(int categoryId) {
     return selectedCategoryIds.contains(categoryId);
   }
@@ -43,42 +43,44 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Map<dynamic, List> groupDataByCategories() {
     return groupBy(data, (obj) => obj['categories']);
   }
-  bool _isMounted = false;
+  // bool _isMounted = false;
   @override
   void initState() {
     super.initState();
-    checkAndNavigate();
-    _isMounted = true;
+    // initialTheme();
+    
+    // _isMounted = true;
     getCategories();
     getSelectedCategories();
   }
   @override
   void dispose() {
-    _isMounted = false;
+    // _isMounted = false;
     super.dispose();
   }
-
-  void checkAndNavigate() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool categoriesSaved = prefs.containsKey('selectedCategories');
-
-    if (_isMounted && categoriesSaved) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomeScreen())
-      );
-    }
-  }
+  // initialTheme()async{
+  //
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return   color = prefs.getBool('color')!;
+  //
+  // }
 
   @override
   Widget build(BuildContext context) {
     Map<dynamic, List> groupedData = groupDataByCategories();
-    
-    
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Categories'),
+        title: Text('Categories',style: TextStyle(
+          color: Colors.black,
+        ),),
+        backgroundColor:Colors.white,
+        iconTheme: IconThemeData(
+          color: Colors.orange.shade900,
+          size: 30,
+        ),
+
+
       ),
       body: Column(
         children: [
@@ -87,12 +89,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
               itemCount: groupedData.length,
               itemBuilder: (context, index) {
                 int category = groupedData.keys.elementAt(index);
-
-
-                getCate() {
+                getCat() {
                   if (category == 1) {
                     cate = 'Food and Beverage';
-                  } else if (category ==
+                  } else if (category==
                       2) {
                     cate = 'Digital Services';
                   } else if (category ==
@@ -122,9 +122,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   }
                   return cate;
                 }
-
                 return CheckboxListTile(
-                  title: Text(getCate()),
+                  title: Text(getCat()),
                   value: _isSelected(category),
                   onChanged: (bool? value) {
                     int categoryId = category;
@@ -159,30 +158,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
     Navigator.pushReplacement(
         context,
-    MaterialPageRoute(
-      builder: (context) => HomeScreen(),
-    ));
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+        ));
   }
-
-
-  // void saveLikeItemsID() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //
-  //
-  //   prefs.setStringList('selectedliked', likedItemsIds.map((id) => id.toString()).toList());
-  //
-  //
-  //
-  //   Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => HomeScreen(),
-  //       ));
-  // }
-
-
-
-
 
   Future<void> getSelectedCategories() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
